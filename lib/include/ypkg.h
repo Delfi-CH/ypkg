@@ -2,6 +2,16 @@
 
 #define YPKG_H
 
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <sqlite3.h>
+
+// Consts
+
+extern const char *YPKG_CONFIG_PATH;
+extern const char *YPKG_LOCAL_DB;
+
 // Enums
 
 typedef enum license {
@@ -106,8 +116,63 @@ typedef struct packagegroup PackageGroup;
 
 typedef struct repository Repository;
 
+typedef struct env_vars ENV_VARS;
+
+struct package {
+    char name[128];
+    char description[1024];
+    MachineArch architecture;
+    uint64_t published_date;
+    char version[32];
+    License license;
+    char upstream_url[1024];
+    char provides[128][128];
+    Package *dependencies[256];
+    Package *conflicts[256];
+    Repository *repository;
+};
+
+/* 
+A package with diffrent providers that the user can choose between.
+eg: both linux and linux-lts provide the linux kernel
+*/
+struct metapackage {
+    char name[128];
+    char description[1024];
+    MachineArch architecture;
+    uint64_t published_date;
+    char version[32];
+    Package *options[256];
+    Repository *repository;
+};
+
+struct packagegroup {
+    char name[128];
+    char description[1024];
+    MachineArch architecture;
+    uint64_t published_date;
+    char version[32];
+    Package *contents[256];
+    Repository *repository;
+};
+
+struct repository {
+    char name[128];
+    char description[1024];
+    bool local;
+    char url[1024];
+    size_t package_count;
+    Package packages[];
+};
+
+struct env_vars {
+    char *config_path;
+    char *local_db_path;
+    sqlite3 *local_db;
+};
+
 // Functions
 
-void hello();
+int ypkg_init(ENV_VARS *env_vars);
 
 #endif
