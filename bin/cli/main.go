@@ -1,13 +1,14 @@
 package main
 
-/*
-#cgo LDFLAGS: -L/lib -lypkg
-#include "../../lib/include/ypkg.h"
-*/
-import "C"
-import "fmt"
+import (
+	"delfi.dev/libypkg"
+	"fmt"
+)
 
 func main() {
-	fmt.Println("hello, go");
-	C.hello()
+	env, err := libypkg.Ypkg_Init()
+	if (err != nil) {
+		fmt.Println("error: " + err.Error())
+	}
+	fmt.Println(env)
 }

@@ -6,7 +6,7 @@
 sqlite3 *open_db(char *filename) {
     sqlite3 *db;
     int rc;
-    rc = sqlite3_open_v2(filename, &db, SQLITE_OPEN_CREATE, NULL);
+    rc = sqlite3_open_v2(filename, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
     if ( rc ) {
         return NULL;
     } else {

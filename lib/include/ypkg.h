@@ -83,7 +83,7 @@ typedef enum license {
     COMMERCIAL,
     NO_LICENSE,
     CUSTOM
-} License;
+} YPKG_License;
 
 typedef enum arch {
     ANY = 0,
@@ -104,32 +104,32 @@ typedef enum arch {
     POWERISA,
     IBM_Z,
     M68K,   
-} MachineArch;
+} YPKG_MachineArch;
 
 // Structs
 
-typedef struct package Package;
+typedef struct package YPKG_Package;
 
-typedef struct metapackage MetaPackage;
+typedef struct metapackage YPKG_MetaPackage;
 
-typedef struct packagegroup PackageGroup;
+typedef struct packagegroup YPKG_PackageGroup;
 
-typedef struct repository Repository;
+typedef struct repository YPKG_Repository;
 
-typedef struct env_vars ENV_VARS;
+typedef struct env_vars YPKG_ENV_VARS;
 
 struct package {
     char name[128];
     char description[1024];
-    MachineArch architecture;
+    YPKG_MachineArch architecture;
     uint64_t published_date;
     char version[32];
-    License license;
+    YPKG_License license;
     char upstream_url[1024];
     char provides[128][128];
-    Package *dependencies[256];
-    Package *conflicts[256];
-    Repository *repository;
+    YPKG_Package *dependencies[256];
+    YPKG_Package *conflicts[256];
+    YPKG_Repository *repository;
 };
 
 /* 
@@ -139,21 +139,21 @@ eg: both linux and linux-lts provide the linux kernel
 struct metapackage {
     char name[128];
     char description[1024];
-    MachineArch architecture;
+    YPKG_MachineArch architecture;
     uint64_t published_date;
     char version[32];
-    Package *options[256];
-    Repository *repository;
+    YPKG_Package *options[256];
+    YPKG_Repository *repository;
 };
 
 struct packagegroup {
     char name[128];
     char description[1024];
-    MachineArch architecture;
+    YPKG_MachineArch architecture;
     uint64_t published_date;
     char version[32];
-    Package *contents[256];
-    Repository *repository;
+    YPKG_Package *contents[256];
+    YPKG_Repository *repository;
 };
 
 struct repository {
@@ -162,7 +162,7 @@ struct repository {
     bool local;
     char url[1024];
     size_t package_count;
-    Package packages[];
+    YPKG_Package packages[];
 };
 
 struct env_vars {
@@ -173,6 +173,6 @@ struct env_vars {
 
 // Functions
 
-int ypkg_init(ENV_VARS *env_vars);
+int ypkg_init(YPKG_ENV_VARS *env_vars, char **errmsg);
 
 #endif
