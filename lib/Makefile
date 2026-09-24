@@ -1,21 +1,21 @@
 CFLAGS = -Wall -Werror -pedantic
+LDLIBS = -lsqlite3
 CC = gcc
+
+OBJECTS = ypkg.o types.o db.o
 
 all: libypkg.so
 
-libypkg.so: ypkg.o types.o
-	$(CC) $(CFLAGS) -shared -o libypkg.so ypkg.o types.o
+libypkg.so: $(OBJECTS)
+	$(CC) $(CFLAGS) -shared -o $@ $(OBJECTS) $(LDLIBS)
 
-ypkg.o: src/ypkg.c 
-	$(CC) $(CFLAGS) -c -fPIC -o ypkg.o src/ypkg.c
-
-types.o: src/types.c
-	$(CC) $(CFLAGS) -c -fPIC -o types.o src/types.c
+$(OBJECTS): %.o: src/%.c
+	$(CC) -c -fPIC $^ -o $@
 
 .PHONY: clean
 
 clean:
-	rm -rf out
+	rm -rf *.o *.so
 
 PREFIX ?= /usr
 LIBDIR = $(PREFIX)/lib

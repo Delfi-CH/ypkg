@@ -2,6 +2,8 @@
 
 #define YPKG_H
 
+// Enums
+
 typedef enum license {
     UNKNOWN = 0,
 
@@ -94,9 +96,17 @@ typedef enum arch {
     M68K,   
 } MachineArch;
 
+// Structs
+
 typedef struct package Package;
 
-MachineArch get_compatible_architectures(MachineArch initial_arch);
+typedef struct metapackage MetaPackage;
+
+typedef struct packagegroup PackageGroup;
+
+typedef struct repository Repository;
+
+// Functions
 
 void hello();
 
