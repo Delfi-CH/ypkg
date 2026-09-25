@@ -1,7 +1,5 @@
 CFLAGS = -Wall -Werror -pedantic
 LDLIBS = -lsqlite3
-CC = gcc
-
 OBJECTS = ypkg.o consts.o db.o
 
 all: libypkg.so
