@@ -16,7 +16,7 @@ C library for interacting with ypkg.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/whytools/ypkg.git
+git clone https://github.com/Delfi-CH/ypkg.git
 cd ypkg/lib
 ```
 
