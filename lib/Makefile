@@ -2,6 +2,8 @@ CFLAGS = -Wall -Werror -pedantic
 LDLIBS = -lsqlite3
 OBJECTS = ypkg.o consts.o db.o
 
+.PHONY: all
+
 all: libypkg.so
 
 libypkg.so: $(OBJECTS)
@@ -13,7 +15,7 @@ $(OBJECTS): %.o: src/%.c
 .PHONY: clean
 
 clean:
-	rm -rf *.o *.so
+	rm -rf *.o *.so *.a
 
 PREFIX ?= /usr
 LIBDIR = $(PREFIX)/lib
