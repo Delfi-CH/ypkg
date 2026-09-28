@@ -111,7 +111,7 @@ const char *SQL_CREATE_PACKAGE_GROUP =
     "group_id INT NOT NULL,"
     "PRIMARY KEY (package_id, group_id),"
     "FOREIGN KEY(package_id) REFERENCES package(self_id),"
-    "FOREIGN KEY(group_id) REFERENCES group(self_id)"
+    "FOREIGN KEY(group_id) REFERENCES package_group(self_id)"
     ");"
 ;
 

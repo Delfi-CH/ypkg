@@ -29,8 +29,6 @@ ifeq ($(OPTIMIZE),speed)
 endif
 ifeq ($(OPTIMIZE),brr)
 	$(CC) $(OPTFLAGS_BRRR) -c -fPIC $^ -o $@
-else
-	$(CC) $(OPTFLAGS) -c -fPIC $^ -o $@
 endif
 
 .PHONY: clean
