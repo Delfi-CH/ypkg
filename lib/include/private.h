@@ -6,23 +6,18 @@
 
 // consts
 
-extern const char* PROVIDES_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* PACKAGE_PROVIDES_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* PACKAGE_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* PACKAGE_DEPENDENCY_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* PACKAGE_CONFLICTS_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* METAPACKAGE_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* PACKAGE_GROUP_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* GROUP_SQL_CREATE_TABLE_STATEMENT;
-
-extern const char* REPOSITORY_SQL_CREATE_TABLE_STATEMENT;
+extern const char *SQL_CREATE_REPOSITORY;
+extern const char *SQL_CREATE_PACKAGE_IDENTIFIER;
+extern const char *SQL_CREATE_PACKAGE_IDENTIFIER_REPOSITORY;
+extern const char *SQL_CREATE_PROVIDES;
+extern const char *SQL_CREATE_PACKAGE;
+extern const char *SQL_CREATE_PACKAGE_PROVIDES;
+extern const char *SQL_CREATE_PACKAGE_DEPENDS;
+extern const char *SQL_CREATE_PACKAGE_CONFLICTS;
+extern const char *SQL_CREATE_METAPACKAGE;
+extern const char *SQL_CREATE_PACKAGE_METAPACKAGE;
+extern const char *SQL_CREATE_GROUP;
+extern const char *SQL_CREATE_PACKAGE_GROUP;
 
 // functions
 

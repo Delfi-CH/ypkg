@@ -17,47 +17,62 @@ sqlite3 *open_db(char *filename) {
 int create_initial_tables(sqlite3 *db) {
     int rc;
     char *errmsg = NULL;
-    rc = sqlite3_exec(db, REPOSITORY_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_REPOSITORY, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PACKAGE_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_IDENTIFIER, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PROVIDES_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_IDENTIFIER_REPOSITORY, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PACKAGE_PROVIDES_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PROVIDES, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PACKAGE_DEPENDENCY_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PACKAGE_CONFLICTS_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_PROVIDES, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, METAPACKAGE_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_DEPENDS, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, GROUP_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_CONFLICTS, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;
     }
-    rc = sqlite3_exec(db, PACKAGE_GROUP_SQL_CREATE_TABLE_STATEMENT, NULL, NULL, &errmsg);
+    rc = sqlite3_exec(db, SQL_CREATE_METAPACKAGE, NULL, NULL, &errmsg);
+    if ( rc ) {
+        fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
+        return rc;
+    }
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_METAPACKAGE, NULL, NULL, &errmsg);
+    if ( rc ) {
+        fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
+        return rc;
+    }
+    rc = sqlite3_exec(db, SQL_CREATE_GROUP, NULL, NULL, &errmsg);
+    if ( rc ) {
+        fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
+        return rc;
+    }
+    rc = sqlite3_exec(db, SQL_CREATE_PACKAGE_GROUP, NULL, NULL, &errmsg);
     if ( rc ) {
         fprintf(stderr, "create_initial_tables: sqlite error: %s\n", errmsg);
         return rc;

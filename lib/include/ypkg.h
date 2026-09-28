@@ -108,6 +108,8 @@ typedef enum arch {
 
 // Structs
 
+typedef struct package_identifier YPKG_Package_Identifier;
+
 typedef struct package YPKG_Package;
 
 typedef struct metapackage YPKG_MetaPackage;
@@ -118,18 +120,22 @@ typedef struct repository YPKG_Repository;
 
 typedef struct env_vars YPKG_ENV_VARS;
 
-struct package {
+struct package_identifier {
     char name[128];
     char description[1024];
     YPKG_MachineArch architecture;
     uint64_t published_date;
     char version[32];
+    YPKG_Repository *repository;
+};
+
+struct package {
+    YPKG_Package_Identifier name;
     YPKG_License license;
     char upstream_url[1024];
     char provides[128][128];
     YPKG_Package *dependencies[256];
     YPKG_Package *conflicts[256];
-    YPKG_Repository *repository;
 };
 
 /* 
@@ -137,29 +143,20 @@ A package with diffrent providers that the user can choose between.
 eg: both linux and linux-lts provide the linux kernel
 */
 struct metapackage {
-    char name[128];
-    char description[1024];
-    YPKG_MachineArch architecture;
-    uint64_t published_date;
-    char version[32];
+    YPKG_Package_Identifier name;
     YPKG_Package *options[256];
-    YPKG_Repository *repository;
 };
 
 struct packagegroup {
-    char name[128];
-    char description[1024];
-    YPKG_MachineArch architecture;
-    uint64_t published_date;
-    char version[32];
+    YPKG_Package_Identifier name;
     YPKG_Package *contents[256];
-    YPKG_Repository *repository;
 };
 
 struct repository {
     char name[128];
     char description[1024];
     bool local;
+    uint64_t last_updated;
     char url[1024];
     size_t package_count;
     YPKG_Package packages[];
