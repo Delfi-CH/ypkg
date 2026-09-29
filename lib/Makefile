@@ -1,5 +1,5 @@
 CFLAGS = -Wall -Werror -pedantic
-LDLIBS = -lsqlite3
+LDLIBS = -lsqlite3 -liniparser
 OPTIMIZE ?= debug
 OPTFLAGS = -O0
 OPTFLAGS_SMALL = -Os
@@ -44,5 +44,6 @@ INCLUDEDIR = $(PREFIX)/include
 
 install:
 	install -d $(DESTDIR)$(LIBDIR)
+	install -d $(DESTDIR)$(INCLUDEDIR)
 	install -m 644 libypkg.so $(DESTDIR)$(LIBDIR)/libypkg.so
 	install -m 644 include/ypkg.h $(DESTDIR)$(INCLUDEDIR)/ypkg.h

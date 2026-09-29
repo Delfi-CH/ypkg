@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <sqlite3.h>
+#include <iniparser/iniparser.h>
 
 // Consts
 
@@ -120,6 +121,10 @@ typedef struct repository YPKG_Repository;
 
 typedef struct env_vars YPKG_ENV_VARS;
 
+typedef struct config YPKG_Config;
+
+typedef struct remote_repository YPKG_Config_Remote_Repository;
+
 struct package_identifier {
     char name[128];
     char description[1024];
@@ -165,7 +170,20 @@ struct repository {
 struct env_vars {
     char *config_path;
     char *local_db_path;
+    YPKG_Config *config;
     sqlite3 *local_db;
+};
+
+struct config {
+    uint8_t parallel_downloads;
+    char *local_db_path;
+    YPKG_Config_Remote_Repository *remotes[64];
+};
+
+struct remote_repository {
+    char *name;
+    char *url;
+    char *mirrors[128];
 };
 
 // Functions
