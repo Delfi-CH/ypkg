@@ -32,7 +32,7 @@ make
 ```bash
 make OPTIMIZE=debug
 make OPTIMIZE=balanced
-make OPTIMIZE=speed # This will only run on the machine you are building on
+make OPTIMIZE=speed # This will probably only run on the machine you are building on
 ```
 
 *Force use gcc/clang:*
@@ -50,7 +50,15 @@ sudo make install
 make install
 ```
 
-4. Remove the artifacts
+*Note: On some systems the library might need to be installed to /usr/lib64 instead of the default /usr/lib. To install in /usr/lib64 run:* `sudo make install LIBDIR=/usr/lib64`
+
+4. Build the examples
+
+```bash
+make examples
+```
+
+5. Remove the artifacts
 
 ```bash
 make clean
