@@ -12,6 +12,8 @@
 
 extern const char *YPKG_CONFIG_PATH;
 extern const char *YPKG_LOCAL_DB;
+extern const char *YPKG_CONFIG_BASE_DIR;
+extern const char *YPKG_LOCAL_DB_BASE_DIR;
 
 // Enums
 
@@ -168,6 +170,8 @@ struct repository {
 };
 
 struct env_vars {
+    char *config_base_dir;
+    char *local_db_base_dir;
     char *config_path;
     char *local_db_path;
     YPKG_Config *config;

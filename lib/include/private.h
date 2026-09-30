@@ -23,7 +23,7 @@ extern const char *SQL_CREATE_PACKAGE_GROUP;
 // functions
 
 // db.c
-sqlite3 *open_db(char *filename);
+sqlite3 *open_db(YPKG_ENV_VARS *env_vars);
 
 int create_initial_tables(sqlite3 *db);
 

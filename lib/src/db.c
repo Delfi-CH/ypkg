@@ -2,11 +2,17 @@
 #include <sqlite3.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-sqlite3 *open_db(char *filename) {
+sqlite3 *open_db(YPKG_ENV_VARS *env_vars) {
+    struct stat st = {0};
+    if (stat(env_vars->local_db_base_dir, &st) == -1) {
+        mkdir(env_vars->local_db_base_dir, 0644);
+    }
     sqlite3 *db;
     int rc;
-    rc = sqlite3_open_v2(filename, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
+    rc = sqlite3_open_v2(env_vars->local_db_path, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
     if ( rc ) {
         return NULL;
     } else {

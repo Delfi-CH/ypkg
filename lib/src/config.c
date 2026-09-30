@@ -5,6 +5,8 @@
 #include <errno.h>
 #include <string.h>
 #include <stdarg.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <iniparser/iniparser.h>
 #include "../include/ypkg.h"
 
@@ -70,6 +72,10 @@ YPKG_Config *read_config(YPKG_ENV_VARS *env_vars, char **errmsg) {
 } 
 
 int ypkg_config_exists(YPKG_ENV_VARS *env_vars) {
+    struct stat st = {0};
+    if (stat(env_vars->config_base_dir, &st) == -1) {
+        mkdir(env_vars->config_base_dir, 0644);
+    }
     FILE *config_file = fopen(env_vars->config_path, "r");
     if (config_file == NULL) {
         return 0;

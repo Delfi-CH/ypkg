@@ -117,3 +117,5 @@ const char *SQL_CREATE_PACKAGE_GROUP =
 
 const char *YPKG_CONFIG_PATH = "/etc/ypkg.conf";
 const char *YPKG_LOCAL_DB = "/var/lib/ypkg/local.db";
+const char *YPKG_CONFIG_BASE_DIR = "/etc";
+const char *YPKG_LOCAL_DB_BASE_DIR = "/var/lib/ypkg";
