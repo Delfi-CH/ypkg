@@ -5,8 +5,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 int ypkg_init(YPKG_ENV_VARS *env_vars, char **errmsg) {
+    if (env_vars == NULL || errmsg == NULL)
+        return 1;
+
+    int rc = 0;
     env_vars->config_path = secure_getenv("YPKG_CONFIG_PATH");
     if (env_vars->config_path == NULL) {
         env_vars->config_path = (char*)YPKG_CONFIG_PATH;
@@ -17,13 +22,33 @@ int ypkg_init(YPKG_ENV_VARS *env_vars, char **errmsg) {
         env_vars->local_db_path = (char*)YPKG_LOCAL_DB;
     }
 
-    env_vars->local_db = open_db(env_vars->local_db_path);
-     if (env_vars->local_db == NULL) {
-        sprintf(*errmsg, "cannot open local database %s", env_vars->local_db_path);
+    if (!ypkg_local_db_exists(env_vars) && geteuid()) {
+        asprintf(errmsg, "please run this program as root to initialise all the configuration file");
         return 1;
     }
 
-    int rc = create_initial_tables(env_vars->local_db);
+    env_vars->local_db = open_db(env_vars->local_db_path);
+    if (env_vars->local_db == NULL) {
+        asprintf(errmsg, "cannot open local database %s", env_vars->local_db_path);
+        return 1;
+    }
+
+    if (!ypkg_config_exists(env_vars) && geteuid()) {
+        asprintf(errmsg, "please run this program as root to initialise all the configuration file");
+        return 1;
+    }
+
+    rc = init_config(env_vars, errmsg);
+    if ( rc ) {
+        return rc;
+    }
+
+    env_vars->config = read_config(env_vars, errmsg);
+    if (env_vars->config == NULL) {
+        return 1;
+    }
+
+    rc = create_initial_tables(env_vars->local_db);
     if ( rc ) {
         return rc;
     }

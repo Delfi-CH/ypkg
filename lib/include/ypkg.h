@@ -175,7 +175,7 @@ struct env_vars {
 };
 
 struct config {
-    uint8_t parallel_downloads;
+    uint64_t parallel_downloads;
     char *local_db_path;
     YPKG_Config_Remote_Repository *remotes[64];
 };
@@ -188,6 +188,13 @@ struct remote_repository {
 
 // Functions
 
+// ypkg.c
 int ypkg_init(YPKG_ENV_VARS *env_vars, char **errmsg);
+
+//config.c
+int ypkg_config_exists(YPKG_ENV_VARS *env_vars);
+
+//db.c
+int ypkg_local_db_exists(YPKG_ENV_VARS *env_vars);
 
 #endif

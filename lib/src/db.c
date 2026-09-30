@@ -79,7 +79,16 @@ int create_initial_tables(sqlite3 *db) {
     }
     return 0;
 }
-
+ 
 int close_db(sqlite3 *db) {
     return sqlite3_close(db);
+}
+
+int ypkg_local_db_exists(YPKG_ENV_VARS *env_vars) {
+    FILE *db_file = fopen(env_vars->local_db_path, "r");
+    if (db_file == NULL) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
