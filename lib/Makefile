@@ -34,7 +34,7 @@ endif
 .PHONY: clean
 
 clean:
-	rm -rf *.o *.so *.a
+	rm -rf *.o *.so *.a docs
 
 PREFIX ?= /usr
 LIBDIR = $(PREFIX)/lib
@@ -47,3 +47,6 @@ install:
 	install -d $(DESTDIR)$(INCLUDEDIR)
 	install -m 644 libypkg.so $(DESTDIR)$(LIBDIR)/libypkg.so
 	install -m 644 include/ypkg.h $(DESTDIR)$(INCLUDEDIR)/ypkg.h
+
+docs:
+	doxygen
